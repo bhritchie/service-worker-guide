@@ -13,7 +13,8 @@ A guide to Service worker and related APIs.
 - The Service Worker Lifecycle
 - Caching
 - Push and Notifications
-- Related APIs
+- Other Related APIs
+- Appendix: Developer Tools
 
 # Copyright &amp; License
 
