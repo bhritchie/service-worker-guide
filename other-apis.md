@@ -12,6 +12,9 @@
 - Date and Time?
 - Others?
 
+navigator.connect()
+channel messaging API?
+
 
 ***
 

@@ -1,6 +1,11 @@
 # A Guide to Service Worker: The Service Worker Lifecycle
 ***
 
+[API as related to lifecycle]
+[registration]
+[unregistration]
+[update]
+
 - Outlasting pages
 - activate and intall etc
 - skipWaiting and client.claim
@@ -8,6 +13,15 @@
 - updating and replacing workers
 - short lifespan
 - events
+
+
+
+
+The lifecycle of a service worker is completely different from that of a web page. In particular it outlasts the page that registers it. This allows it 
+
+
+
+
 
 
 
@@ -21,7 +35,12 @@ This can lead to surprises. For example, the first time a page with a service wo
     .then() //FINISH THIS
 
 
-At this point you have a service worker registration, an active service worker (assuming this was a brand new worker, and not replacing another worker at the same scope), and a push subscription. However, push notifications will not work yet. This is because the page is not *controlled* by the worker yet. A service worker only becomes a controller on navigation. This means that you'll need at least a page refresh before your notifications start to work—if you have other pages open to the scope you'll need to close them first. You can check whether the page is controlled by a service worker by seeing whether `navigator.serviceWorker.controller` is defined.
+At this point you have a service worker registration, an active service worker (assuming this was a brand new worker, and not replacing another worker at the same scope), and a push subscription. 
+
+[Actually what happens is that you can't get the notification to cause the initial page to open because it isn't controlled yet - it'll open a new tab instead. FIX THIS]
+
+
+This is because the page is not *controlled* by the worker yet. A service worker only becomes a controller on navigation. This means that you'll need at least a page refresh before your notifications start to work—if you have other pages open to the scope you'll need to close them first. You can check whether the page is controlled by a service worker by seeing whether `navigator.serviceWorker.controller` is defined.
 
     
 
@@ -41,6 +60,9 @@ You might even think this is working if you examine it for a few cycle with the 
 
 Service workers are woken to handle events. There are currently five of these events [CORRECT?].
 
+
+[MAYBE SELECT LIST OF EVENTS HERE - WOULD BE NICE TO HAVE A COMPLETE LIST OF EVETS THAT CAN WAKE A SERVICE WORKER ALL IN ONE PLACE - PERHAPS IN AN APPENDIX]
+
 INSTALL
 
 ACTIVATE
@@ -50,6 +72,8 @@ FETCH
 MESSAGE
 
 PUSH
+
+NOtification CLick?
 
 
 Eventually there should be more events as additional APIs are developed - see chapter on other related APIs.

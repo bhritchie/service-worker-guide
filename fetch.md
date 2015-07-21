@@ -3,6 +3,23 @@
 ***
 
 
+- fetch API
+- request and response APIs
+
+
+
+
+
+Some things that could use illustratons:
+
+- modifying requests
+- modifying responses
+- custom responses
+
+
+
+
+
 
 ## Resources
 

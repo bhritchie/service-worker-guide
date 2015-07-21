@@ -61,7 +61,9 @@ One thing I don't love about this approach is that it will require a couple of p
 
 
 
-
+navigator.storage.estimate().then(function(storageInfo){
+  var availableSpace = storageInfo.quota - storageInfo.usage;
+})
 
 
 
@@ -81,11 +83,12 @@ http://www.html5rocks.com/en/tutorials/offline/quota-research/
 [READ UP ON ALL THESE ISSUES ETC IN HERE - RELATIONSHIP AND STATUS SEEMS A BIT UNCLEAR]
 Storage Durability:
 https://github.com/slightlyoff/StorageDurability
-
+[THIS HAS MOVE TO STORAGE?]
 
 Quota Management API:
 https://github.com/w3c/quota-api
 https://w3c.github.io/quota-api/
+Also going to be merged with or superceded by Storage?
 
 
 Storage Spec:
@@ -93,7 +96,7 @@ https://storage.spec.whatwg.org/
 https://github.com/whatwg/storage
 
 
-Permissions API (may wind up include storgae related permissions):
+Permissions API (may wind up include storage related permissions):
 https://w3c.github.io/permissions/
 https://github.com/w3c/permissions
 
