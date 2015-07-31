@@ -27,20 +27,39 @@ The lifecycle of a service worker is completely different from that of a web pag
 
 
 
-This can lead to surprises. For example, the first time a page with a service worker loads, you'll register the service worker, and then you might attempt to get permissions to provide push notifications, which we'll assume the user grants.
+This often causes confusion [WHAT DOES?]. For example, suppose you loaded a page with a new service worker, the client code being as follows: [TEST THIS]
+
+    navigator.serviceWorker.register('service-worker.js', { scope: "/" });
+
+    navigator.serviceWorker.ready.then(function() {
+      console.log('Service worker is ready');
+    }
+
+At this point you have a service worker registration, an active service worker (assuming this was a brand new worker, and not replacing another worker at the same scope), but `serviceWorker.ready` will not resolve. This is because the page is not *controlled* by the worker yet. A service worker only becomes a controller on navigation. This means that you'll need at least a page refresh before your notifications start to work—if you have other pages open to the scope you'll need to close them first. You can check whether the page is controlled by a service worker by seeing whether `navigator.serviceWorker.controller` is defined.
+
+This can lead to puzzling or undesirable behaviour when the service worker is active and otherwise running normally. Take for example the case of loading a new service worker that handles push messages and displays notifications. The first the page with the worker loads, you'll register it, and then attempt to get permissions to provide push notifications, which we'll assume the user grants. Some minimal front-end code will look something like this (we'll look at a complete example in the chapter on [Push and Notifications](/push.md)):
+
+client.js:
 
 
     // Simplest possible illustration of registering and looking for push permissions
     navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
-    .then() //FINISH THIS
+    .then() //
+
+    // MINIMAL CLIENT CODE SAMPLE
+
+worker.js:
+
+    //MINIMAL WORKER CODE SAMPLE  
 
 
-At this point you have a service worker registration, an active service worker (assuming this was a brand new worker, and not replacing another worker at the same scope), and a push subscription. 
 
-[Actually what happens is that you can't get the notification to cause the initial page to open because it isn't controlled yet - it'll open a new tab instead. FIX THIS]
+At this point you have a service worker registration, an active service worker (assuming this was a brand new worker, and not replacing another worker at the same scope), and a push subscription. Push notifications will now work—the age isn't being controlled, but it doesn't matter for handling a push whether or not any page is controlled. When the user clicks on a notification, the service worker is supposed to open an active window if available, or a new window if there is not an actuve window.
+
+If you now fire a notification and click on it, the worker will open up a *new* tab instead of focussing the existing one.
 
 
-This is because the page is not *controlled* by the worker yet. A service worker only becomes a controller on navigation. This means that you'll need at least a page refresh before your notifications start to work—if you have other pages open to the scope you'll need to close them first. You can check whether the page is controlled by a service worker by seeing whether `navigator.serviceWorker.controller` is defined.
+
 
     
 
